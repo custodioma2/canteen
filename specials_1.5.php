@@ -58,6 +58,9 @@ $result_friday = mysqli_query($con, $friday_query);
 
 <header>
     <h1>WGC CANTEEN</h1>
+    <div class="container2">
+        <a href="index_1.php"><img src="WGC_LOGO.png" alt="wgc logo" width="150" height="150"></a>
+    </div>
     <div class="topnav">
         <a class="margin2" href="index_1.php">Home</a>
         <a href="food_1.php">Food</a>
@@ -68,18 +71,16 @@ $result_friday = mysqli_query($con, $friday_query);
 
 <main>
     <h2>SPECIALS</h2>
-
-    <h3>Select a Day</h3>
-    <form name="specials_form" action="specials_1.5.php" method="post">
+    <form class="specials_form" name=specials_form" action="specials_1.5.php" method="post">
+        <p class="sort">Select a Day:</p> <br>
         <input type='submit' name='Monday' value="Monday"> <br>
         <input type='submit' name='Tuesday' value="Tuesday"> <br>
         <input type='submit' name='Wednesday' value="Wednesday"> <br>
         <input type='submit' name='Thursday' value="Thursday"> <br>
         <input type='submit' name='Friday' value="Friday"> <br>
-
     </form>
 
-    <table>
+    <table class="specials_table">
         <tr>
             <th>Day</th>
             <th>Food</th>

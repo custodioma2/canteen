@@ -19,6 +19,17 @@ $this_drinks_record = mysqli_fetch_assoc($this_drinks_result);
 $all_drinks_query = "SELECT DrinkID, Item FROM drinks";
 $all_drinks_result = mysqli_query($con, $all_drinks_query);
 
+$drink_az = "SELECT * FROM drinks ORDER BY Item ASC";
+$result_drink_az = mysqli_query($con, $drink_az);
+
+$drink_za = "SELECT * FROM drinks ORDER BY Item DESC";
+$result_drink_za = mysqli_query($con, $drink_za);
+
+$drink_low = "SELECT * FROM drinks ORDER BY Cost ASC";
+$result_drink_low = mysqli_query($con, $drink_low);
+
+$drink_high = "SELECT * FROM drinks ORDER BY Cost DESC";
+$result_drink_high = mysqli_query($con, $drink_high);
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +46,9 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
 
 <header>
     <h1>WGC CANTEEN</h1>
+    <div class="container2">
+        <a href="index_1.php"><img src="WGC_LOGO.png" alt="wgc logo" width="150" height="150"></a>
+    </div>
     <div class="topnav">
         <a class="margin2" href="index_1.php">Home</a>
         <a href="food_1.php">Food</a>
@@ -72,7 +86,7 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
             ?>
         </select>
 
-        <input type='submit' name='drinks_button' value='Show me the drinks information'>
+        <input class="info_buttons" type='submit' name='drinks_button' value='Show me the drinks information'>
     </form>
 
     <h3>Search A Drink</h3>
@@ -106,73 +120,79 @@ $all_drinks_result = mysqli_query($con, $all_drinks_query);
     ?>
 
     <h3>Drink Menu</h3>
-    <table>
+    <form name="drinks_menu_form" action="drinks_1.php" method="post" class="drinks_menu_form">
+        <p class="sort">Sort By:</p> <br>
+        <input type='submit' name='drink_az' value="A - Z"> <br>
+        <input type='submit' name='drink_za' value="Z - A"> <br>
+        <input type='submit' name='drink_low' value="Cost: Low - High"> <br>
+        <input type='submit' name='drink_high' value="Cost: High - Low"> <br>
+    </form>
+    <table class="full_menu">
         <tr>
             <th>Item Name</th>
             <th>Cost</th>
             <th>Calories</th>
             <th>Stock</th>
         </tr>
-        <tr>
-            <td>Aloe Vera Water</td>
-            <td>$2.50</td>
-            <td>110</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Apple Juice</td>
-            <td>$3.00</td>
-            <td>120</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Chocolate Milk</td>
-            <td>$2.00</td>
-            <td>200</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Chocolate Up & GO</td>
-            <td>$2.50</td>
-            <td>190</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>Orange Juice</td>
-            <td>$3.00</td>
-            <td>120</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>Peach Iced Tea</td>
-            <td>$3.50</td>
-            <td>100</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Pump Bottled Water</td>
-            <td>$4.00</td>
-            <td>0</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Raspberry Iced Tea</td>
-            <td>$3.50</td>
-            <td>100</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Tropical Juice</td>
-            <td>$3.00</td>
-            <td>120</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Vanilla Up & Go</td>
-            <td>$2.50</td>
-            <td>190</td>
-            <td>2</td>
-        </tr>
+
+        <?php
+        if (isset($_POST['drink_az'])) {
+            if (mysqli_num_rows($result_drink_az) != 0) {
+                while ($test = mysqli_fetch_array($result_drink_az)) {
+                    $id = $test['DrinkID'];
+                    echo "<tr>";
+                    echo "<td>" . $test['Item'] . "</td>";
+                    echo "<td>" . $test['Cost'] . "</td>";
+                    echo "<td>" . $test['Calories'] . "</td>";
+                    echo "<td>" . $test['Stock'] . "</td>";
+                    echo "</tr>";
+                }
+            }
+        }
+
+        if (isset($_POST['drink_za'])) {
+            if (mysqli_num_rows($result_drink_za) !=0) {
+                while ($test = mysqli_fetch_array($result_drink_za)) {
+                    $id = $test['DrinkID'];
+                    echo "<tr>";
+                    echo "<td>" . $test['Item'] . "</td>";
+                    echo "<td>" . $test['Cost'] . "</td>";
+                    echo "<td>" . $test['Calories'] . "</td>";
+                    echo "<td>" . $test['Stock'] . "</td>";
+                    echo "</tr>";
+                }
+            }
+        }
+
+        if (isset($_POST['drink_low'])) {
+            if (mysqli_num_rows($result_drink_low) !=0) {
+                while ($test = mysqli_fetch_array($result_drink_low)) {
+                    $id = $test['DrinkID'];
+                    echo "<tr>";
+                    echo "<td>" . $test['Item'] . "</td>";
+                    echo "<td>" . $test['Cost'] . "</td>";
+                    echo "<td>" . $test['Calories'] . "</td>";
+                    echo "<td>" . $test['Stock'] . "</td>";
+                    echo "</tr>";
+                }
+            }
+        }
+
+        if (isset($_POST['drink_high'])) {
+            if (mysqli_num_rows($result_drink_high) !=0) {
+                while ($test = mysqli_fetch_array($result_drink_high)) {
+                    $id = $test['DrinkID'];
+                    echo "<tr>";
+                    echo "<td>" . $test['Item'] . "</td>";
+                    echo "<td>" . $test['Cost'] . "</td>";
+                    echo "<td>" . $test['Calories'] . "</td>";
+                    echo "<td>" . $test['Stock'] . "</td>";
+                    echo "</tr>";
+                }
+            }
+        }
+
+        ?>
     </table>
 
 </main>

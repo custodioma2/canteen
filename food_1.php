@@ -19,6 +19,17 @@ $this_food_record = mysqli_fetch_assoc($this_food_result);
 $all_food_query = "SELECT FoodID, Item FROM food";
 $all_food_result = mysqli_query($con, $all_food_query);
 
+$food_az = "SELECT * FROM food ORDER BY Item ASC";
+$result_food_az = mysqli_query($con, $food_az);
+
+$food_za = "SELECT * FROM food ORDER BY Item DESC";
+$result_food_za = mysqli_query($con, $food_za);
+
+$food_low = "SELECT * FROM food ORDER BY Cost ASC";
+$result_food_low = mysqli_query($con, $food_low);
+
+$food_high = "SELECT * FROM food ORDER BY Cost DESC";
+$result_food_high = mysqli_query($con, $food_high);
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +46,9 @@ $all_food_result = mysqli_query($con, $all_food_query);
 
 <header>
     <h1>WGC CANTEEN</h1>
+    <div class="container2">
+        <a href="index_1.php"><img src="WGC_LOGO.png" alt="wgc logo" width="150" height="150"></a>
+    </div>
     <div class="topnav">
         <a class="margin2" href="index_1.php">Home</a>
         <a href="food_1.php">Food</a>
@@ -72,7 +86,7 @@ $all_food_result = mysqli_query($con, $all_food_query);
             ?>
         </select>
 
-        <input type='submit' name='food_button' value='Show me the food information'>
+        <input class="info_buttons" type='submit' name='food_button' value='Show me the food information'>
     </form>
 
     <h3>Search A Food</h3>
@@ -106,134 +120,80 @@ $all_food_result = mysqli_query($con, $all_food_query);
     ?>
 
     <h3>Food Menu</h3>
-    <table>
+    <form name="food_menu_form" action="food_1.php" method="post" class="food_menu_form">
+        <p class="sort">Sort By:</p> <br>
+        <input type='submit' name='food_az' value="A - Z"> <br>
+        <input type='submit' name='food_za' value="Z - A"> <br>
+        <input type='submit' name='food_low' value="Cost: Low - High"> <br>
+        <input type='submit' name='food_high' value="Cost: High - Low"> <br>
+    </form>
+
+    <table class="full_menu">
         <tr>
             <th>Item Name</th>
             <th>Cost</th>
             <th>Calories</th>
             <th>Stock</th>
         </tr>
-        <tr>
-            <td>Beef Noodles</td>
-            <td>$4.00</td>
-            <td>300</td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <td>Blueberry Muffin</td>
-            <td>$2.50</td>
-            <td>550</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>Brownie</td>
-            <td>$2.50</td>
-            <td>250</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Cinnamon Roll</td>
-            <td>$3.00</td>
-            <td>550</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>Chicken Noodles</td>
-            <td>$4.00</td>
-            <td>300</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Chicken Sandwich</td>
-            <td>$2.50</td>
-            <td>500</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Chocolate Muffin</td>
-            <td>$2.50</td>
-            <td>550</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Cookie Caramel</td>
-            <td>$2.50</td>
-            <td>250</td>
-            <td>4</td>
-        </tr>
-        <tr>
-            <td>Garlic Bread</td>
-            <td>$2.50</td>
-            <td>300</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Hot Chips</td>
-            <td>$4.00</td>
-            <td>360</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Hot Dog</td>
-            <td>$3.00</td>
-            <td>150</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Mince Pie</td>
-            <td>$4.00</td>
-            <td>450</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Nachos</td>
-            <td>$4.00</td>
-            <td>350</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Pasta Salad</td>
-            <td>$3.00</td>
-            <td>280</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Pepperoni Pizza</td>
-            <td>$4.50</td>
-            <td>400</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Uncle Ben's Rice Medley</td>
-            <td>$4.00</td>
-            <td>360</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>Veggie Pie</td>
-            <td>$4.00</td>
-            <td>450</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Vegetarian Pizza</td>
-            <td>$4.50</td>
-            <td>300</td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <td>Veggie Noodles</td>
-            <td>$4.00</td>
-            <td>300</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Veggie Sandwich</td>
-            <td>$2.50</td>
-            <td>450</td>
-            <td>1</td>
-        </tr>
 
+        <?php
+        if (isset($_POST['food_az'])) {
+            if (mysqli_num_rows($result_food_az) != 0) {
+                while ($test = mysqli_fetch_array($result_food_az)) {
+                    $id = $test['FoodID'];
+                    echo "<tr>";
+                    echo "<td>" . $test['Item'] . "</td>";
+                    echo "<td>" . $test['Cost'] . "</td>";
+                    echo "<td>" . $test['Calories'] . "</td>";
+                    echo "<td>" . $test['Stock'] . "</td>";
+                    echo "</tr>";
+                }
+            }
+        }
+
+        if (isset($_POST['food_za'])) {
+            if (mysqli_num_rows($result_food_za) != 0) {
+                while ($test = mysqli_fetch_array($result_food_za)) {
+                    $id = $test['FoodID'];
+                    echo "<tr>";
+                    echo "<td>" . $test['Item'] . "</td>";
+                    echo "<td>" . $test['Cost'] . "</td>";
+                    echo "<td>" . $test['Calories'] . "</td>";
+                    echo "<td>" . $test['Stock'] . "</td>";
+                    echo "</tr>";
+                }
+            }
+        }
+
+        if (isset($_POST['food_low'])) {
+            if (mysqli_num_rows($result_food_low) != 0) {
+                while ($test = mysqli_fetch_array($result_food_low)) {
+                    $id = $test['FoodID'];
+                    echo "<tr>";
+                    echo "<td>" . $test['Item'] . "</td>";
+                    echo "<td>" . $test['Cost'] . "</td>";
+                    echo "<td>" . $test['Calories'] . "</td>";
+                    echo "<td>" . $test['Stock'] . "</td>";
+                    echo "</tr>";
+                }
+            }
+        }
+
+        if (isset($_POST['food_high'])) {
+            if (mysqli_num_rows($result_food_high) != 0) {
+                while ($test = mysqli_fetch_array($result_food_high)) {
+                    $id = $test['FoodID'];
+                    echo "<tr>";
+                    echo "<td>" . $test['Item'] . "</td>";
+                    echo "<td>" . $test['Cost'] . "</td>";
+                    echo "<td>" . $test['Calories'] . "</td>";
+                    echo "<td>" . $test['Stock'] . "</td>";
+                    echo "</tr>";
+                }
+            }
+        }
+
+        ?>
     </table>
 
 </main>

@@ -27,7 +27,9 @@ h2 {
     margin: 0px;
     padding: 15px;
 }
-
+text {
+    margin-bottom: 200px;
+}
 
 h3 {
     margin-top: 0px;
@@ -36,9 +38,14 @@ h3 {
     color: #27829E;
 }
 
+.sort {
+    font-size: 25px;
+    color: #353535;
+    margin-bottom: 0;
+}
 
 .topnav {
-    background-color: #959595;
+    background-color: #C3C3C3;
     overflow: hidden;
     text-align: center;
 }
@@ -50,28 +57,27 @@ h3 {
     font-size: 35px;
     color: #2F8E9D;
     font-weight: 700;
-
 }
 
 main {
     text-align: center;
 }
 
-form {
-    text-align: center;
-    color: #2F8E9D;
-
+.specials_form {
+    float: left;
+    margin-left: 100px;
 }
 
 table {
     border: 2px solid black;
     color: #257c97;
     font-family: 'Lato', sans-serif;
-    font-size: 35px;
+    font-size: 30px;
     border-collapse: collapse;
     margin-right: 0;
-    width: 80%;
-    margin-left: 150px;
+    width: 60%;
+    margin-left: 300px;
+    margin-bottom: 50px;
 
 }
 
@@ -85,15 +91,72 @@ th {
 
 td {
     font-family: 'Lato', sans-serif;
-    color: #959595;
+    color: #353535;
     border-collapse: collapse;
     border: 2px solid black;
     font-size: 20px;
     text-align: center;
-    padding: 0px;
+    padding: 3px;
 }
-
+.info_buttons {
+    background-color: #0FA6BC;
+    padding: 5px;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    color: #353535;
+    margin: 10px;
+    width: 270px;
+}
 input {
-    background-color: #257c97;
+    background-color: #0FA6BC;
+    padding: 5px;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    color: #353535;
+    margin: 10px;
+    width: 150px;
 }
 
+.container2 {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    float: right;
+    margin-right: 200px;
+    margin-top: -175px;
+}
+.full_menu {
+    float: right;
+    width: 70%;
+    margin-right: 100px;
+    padding: 0;
+    margin-left: 0;
+}
+.food_menu_form {
+    float: left;
+    margin-left: 100px;
+    padding: 0;
+    margin-right: 0;
+}
+.drinks_menu_form {
+    float: left;
+    margin-left: 100px;
+    padding: 0;
+    margin-right: 0;
+}
+.container3 {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    float: right;
+    margin-right: 230px;
+    margin-top: -220px;
+}
+.specials_table {
+    float: right;
+    width: 70%;
+    margin-right: 100px;
+    margin-top: 30px;
+    padding: 0;
+    margin-left: 0;
+}
